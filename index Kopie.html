@@ -133,9 +133,7 @@
         function addTodo2() {
             appendTodo(todoList2, todofield2.value)
 
-            let currentList = getLocalStorage('todos_2') || []
-            currentList.push(todofield2.value)
-            setLocalStorage('todos_2', currentList)
+            setLocalStorage('todos_2', todofield2.value)
 
             todofield2.value = ""
         }
@@ -143,9 +141,7 @@
         function addTodo3() {
             appendTodo(todoList3, todofield3.value)
 
-            let currentList = getLocalStorage('todos_3') || []
-            currentList.push(todofield3.value)
-            setLocalStorage('todos_3', currentList)
+            setLocalStorage('todos_3', todofield3.value)
 
             todofield3.value = ""
         }
