@@ -54,18 +54,12 @@
                             <input class="mdl-textfield__input" type="text" id="todofield1">
                             <label class="mdl-textfield__label" for="todofield">Arbeit</label>
                         </div>
-
-                        <button type="submit" class="mdl-button mdl-js-button mdl-button--raised">
-              Hinzufügen
-            </button>
+                        <button type="submit" class="mdl-button mdl-js-button mdl-button--raised">Hinzufügen</button>
                     </form>
-
-
 
                     <ul class="demo-list-control mdl-list" id="todoList1">
 
                     </ul>
-
                 </div>
             </section>
             <section class="mdl-layout__tab-panel" id="fixed-tab-2">
@@ -76,45 +70,29 @@
                             <label class="mdl-textfield__label" for="todofield">Einkaufen</label>
                         </div>
 
-                        <button type="submit" class="mdl-button mdl-js-button mdl-button--raised">
-              Hinzufügen
-            </button>
+                        <button type="submit" class="mdl-button mdl-js-button mdl-button--raised">Hinzufügen</button>
                     </form>
-
-
 
                     <ul class="demo-list-control mdl-list" id="todoList2">
 
                     </ul>
-
                 </div>
             </section>
             <section class="mdl-layout__tab-panel" id="fixed-tab-3">
                 <div class="page-content">
+                    <!-- Rückgabewert = Return, Event = onsubmit -->
                     <form onsubmit="addTodo3(); return false;">
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                             <input class="mdl-textfield__input" type="text" id="todofield3">
                             <label class="mdl-textfield__label" for="todofield">Alltag</label>
                         </div>
 
-                        <button type="submit" class="mdl-button mdl-js-button mdl-button--raised">
-              Hinzufügen
-            </button>
+                        <button type="submit" class="mdl-button mdl-js-button mdl-button--raised">Hinzufügen</button>
                     </form>
-
-
 
                     <ul class="demo-list-control mdl-list" id="todoList3">
 
                     </ul>
-
-
-
-
-
-
-
-
                 </div>
             </section>
         </main>
@@ -153,12 +131,9 @@
         }
 
         function addTodo2() {
-
             appendTodo(todoList2, todofield2.value)
 
-            let currentList2 = getLocalStorage('todos_2') || []
-            currentList2.push(todofield2.value)
-            setLocalStorage('todos_2', currentList)
+            setLocalStorage('todos_2', todofield2.value)
 
             todofield2.value = ""
         }
@@ -208,7 +183,7 @@
         /* ### Local Storage ### */
         function getLocalStorage(key) {
             //return localStorage.getItem(key)
-            return JSON.parse(localStorage.getItem(key)) || {}
+            return JSON.parse(localStorage.getItem(key)) || null
         }
 
         function setLocalStorage(key, value, allowWarning) {
@@ -224,19 +199,21 @@
         }
 
         function init(list, key) {
-            const todos = getLocalStorage(key)
+            const todos = getLocalStorage(key) || []
 
-            for (let todo in todos) {
+            // for = For Schleife/For In Schleife
+            for (let todo of todos) {
                 appendTodo(document.getElementById(list), todo)
             }
         }
 
-
-
-
-        init('todoList1', 'todos_1')
-        init('todoList2', 'todos_2')
-        init('todoList3', 'todos_3')
+        try {
+            init('todoList1', 'todos_1')
+            init('todoList2', 'todos_2')
+            init('todoList3', 'todos_3')
+        } catch {
+            console.log('Es ist ein Fehler aufgetreten')
+        }
 
         //console.log(init)
 
