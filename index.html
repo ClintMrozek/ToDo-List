@@ -12,12 +12,17 @@
 
     <style>
         .demo-list-control {
-            width: 300px;
+            width: 500px;
         }
         
         .page-content {
             padding-left: 100px;
             padding-top: 40px;
+        }
+        
+        .mdl-layout__header-row {
+            display: flex;
+            justify-content: center;
         }
     </style>
 
@@ -42,8 +47,10 @@
                 <a href="#fixed-tab-3" class="mdl-layout__tab">Alltag</a>
             </div>
         </header>
-        <div class="mdl-layout__drawer">
-            <span class="mdl-layout-title">To-Do List</span>
+        <div class="mdl-layout__spacer">
+            <span class="mdl-layout-title"></span>
+
+
 
         </div>
         <main class="mdl-layout__content">
@@ -57,9 +64,17 @@
                         <button type="submit" class="mdl-button mdl-js-button mdl-button--raised">Hinzufügen</button>
                     </form>
 
+
+
                     <ul class="demo-list-control mdl-list" id="todoList1">
 
                     </ul>
+
+                    <form onclick="deletetodo1(); return true;">
+
+                        <button type="click" class="mdl-button mdl-js-button mdl-button--raised">Löschen</button>
+                    </form>
+
                 </div>
             </section>
             <section class="mdl-layout__tab-panel" id="fixed-tab-2">
@@ -73,9 +88,17 @@
                         <button type="submit" class="mdl-button mdl-js-button mdl-button--raised">Hinzufügen</button>
                     </form>
 
+
+
                     <ul class="demo-list-control mdl-list" id="todoList2">
 
                     </ul>
+
+                    <form onclick="deletetodo2(); return true;">
+
+                        <button type="click" class="mdl-button mdl-js-button mdl-button--raised">Löschen</button>
+                    </form>
+
                 </div>
             </section>
             <section class="mdl-layout__tab-panel" id="fixed-tab-3">
@@ -88,11 +111,18 @@
                         </div>
 
                         <button type="submit" class="mdl-button mdl-js-button mdl-button--raised">Hinzufügen</button>
+
                     </form>
 
                     <ul class="demo-list-control mdl-list" id="todoList3">
 
                     </ul>
+
+                    <form onclick="deletetodo3(); return true;">
+
+                        <button type="click" class="mdl-button mdl-js-button mdl-button--raised">Löschen</button>
+                    </form>
+
                 </div>
             </section>
         </main>
@@ -103,7 +133,7 @@
         function appendTodo(list, todoName) {
 
             if (todoName) {
-                list.innerHTML += `
+                list.innerHTML = `
                     <li class="mdl-list__item">
                         <span class="mdl-list__item-primary-content">
                             <i class="material-icons  mdl-list__item-symbol">remove</i>
@@ -115,7 +145,7 @@
                             </label>
                         </span>
                     </li>
-                `;
+                ` + list.innerHTML;
             }
         }
 
@@ -150,6 +180,24 @@
             todofield3.value = ""
         }
 
+        function deletetodo1() {
+
+            localStorage.removeItem("todos_1")
+
+        }
+
+        function deletetodo2() {
+
+            localStorage.removeItem("todos_2")
+
+        }
+
+        function deletetodo3() {
+
+            localStorage.removeItem("todos_3")
+
+        }
+
 
 
         const sel_title = document.getElementById("day")
@@ -164,7 +212,7 @@
                 setTitle(sel_title, 'Sonntag')
                 break;
             case 1:
-                ssetTitle(sel_title, 'Montag')
+                setTitle(sel_title, 'Montag')
                 break;
             case 2:
                 setTitle(sel_title, 'Dienstag')
@@ -218,26 +266,6 @@
         } catch {
             console.log('Es ist ein Fehler aufgetreten')
         }
-
-        //console.log(init)
-
-
-        //appendTodo(document.getElementById('todoList2'), getLocalStorage('todos_2'))
-        //appendTodo(document.getElementById('todoList3'), getLocalStorage('todos_3'))
-
-
-        /* const myLocalKey = 'MY_LOCAL_TODO'
-         setLocalStorage(myLocalKey, 'hallo2')
-
-          let x = getLocalStorage(myLocalKey) 
-
-
-
-
-
-
-
-        console.log(x)*/
     </script>
 </body>
 
