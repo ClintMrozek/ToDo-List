@@ -70,7 +70,7 @@
 
                     </ul>
 
-                    <form onclick="deletetodo1(); return true;">
+                    <form onclick="deletetodo1(); return false;">
 
                         <button type="click" class="mdl-button mdl-js-button mdl-button--raised">Löschen</button>
                     </form>
@@ -94,7 +94,7 @@
 
                     </ul>
 
-                    <form onclick="deletetodo2(); return true;">
+                    <form onclick="deletetodo2(); return false;">
 
                         <button type="click" class="mdl-button mdl-js-button mdl-button--raised">Löschen</button>
                     </form>
@@ -118,7 +118,7 @@
 
                     </ul>
 
-                    <form onclick="deletetodo3(); return true;">
+                    <form onclick="deletetodo3(); return false;">
 
                         <button type="click" class="mdl-button mdl-js-button mdl-button--raised">Löschen</button>
                     </form>
@@ -183,19 +183,21 @@
         function deletetodo1() {
 
             localStorage.removeItem("todos_1")
+            document.getElementById('todoList1').innerHTML = ''
 
         }
 
         function deletetodo2() {
 
             localStorage.removeItem("todos_2")
+            document.getElementById('todoList2').innerHTML = ''
 
         }
 
         function deletetodo3() {
 
             localStorage.removeItem("todos_3")
-
+            document.getElementById('todoList3').innerHTML = ''
         }
 
 
