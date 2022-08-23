@@ -130,51 +130,82 @@
 
 
     <script>
-        function appendTodo(list, todoName) {
+        function appendTodo(list, id, todoName, checked) {
 
             if (todoName) {
                 list.innerHTML = `
-                    <li class="mdl-list__item">
+                    <li class="mdl-list__item" id="${id}">
                         <span class="mdl-list__item-primary-content">
                             <i class="material-icons  mdl-list__item-symbol">remove</i>
                             ${todoName}
                         </span>
                         <span class="mdl-list__item-secondary-action">
-                            <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-1">
-                                <input type="checkbox" id="list-checkbox-1" class="mdl-checkbox__input" checked />
+                            <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-${id}">
+                                <input type="checkbox" id="list-checkbox-${id}" class="mdl-checkbox__input" ${checked ? 'checked' : '' } />
+                           
+
+                            </span>
+                            <label class="mdl-icon-toggle mdl-js-icon-toggle mdl-js-ripple-effect" for="icon-toggle-${id}">
+                                <input type="checkbox" id="icon-toggle-${id}" class="mdl-icon-toggle__input" ${checked ? del_button1 : ''} />
+                                <i class="mdl-icon-toggle__label material-icons">delete</i>
+                                </label>
+
                             </label>
-                        </span>
+
                     </li>
                 ` + list.innerHTML;
             }
         }
 
         function addTodo1() {
-
-            appendTodo(todoList1, todofield1.value)
+            const id = uuidv4()
+            appendTodo(todoList1, id, todofield1.value)
 
             let currentList = getLocalStorage('todos_1') || []
-            currentList.push(todofield1.value)
+            currentList.push({
+                id: id,
+                text: todofield1.value,
+            })
             setLocalStorage('todos_1', currentList)
 
             todofield1.value = ""
         }
 
+        function del_button1() {
+
+            localStorage.removeItem(id)
+
+        }
+
+        localStorage.removeItem("598446811_333022042")
+
+
+
+
+
         function addTodo2() {
-            appendTodo(todoList2, todofield2.value)
+            const id = uuidv4()
+            appendTodo(todoList2, id, todofield2.value)
 
             let currentList = getLocalStorage('todos_2') || []
-            currentList.push(todofield2.value)
+            currentList.push({
+                id: id,
+                text: todofield2.value,
+            })
             setLocalStorage('todos_2', currentList)
 
             todofield2.value = ""
         }
 
         function addTodo3() {
-            appendTodo(todoList3, todofield3.value)
+            const id = uuidv4()
+            appendTodo(todoList3, id, todofield3.value)
 
             let currentList = getLocalStorage('todos_3') || []
-            currentList.push(todofield3.value)
+            currentList.push({
+                id: id,
+                text: todofield3.value,
+            })
             setLocalStorage('todos_3', currentList)
 
             todofield3.value = ""
@@ -198,6 +229,16 @@
 
             localStorage.removeItem("todos_3")
             document.getElementById('todoList3').innerHTML = ''
+        }
+
+
+        // Importiert
+        function getRandomId() {
+            return Math.random().toString().substr(2, 9)
+        }
+
+        function uuidv4() {
+            return getRandomId() + '_' + getRandomId()
         }
 
 
@@ -257,7 +298,7 @@
 
             // for = For Schleife/For In Schleife
             for (let todo of todos) {
-                appendTodo(document.getElementById(list), todo)
+                appendTodo(document.getElementById(list), todo.id, todo.text)
             }
         }
 
