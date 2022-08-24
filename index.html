@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
     <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <style>
         .demo-list-control {
@@ -142,16 +143,11 @@
                         <span class="mdl-list__item-secondary-action">
                             <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-${id}">
                                 <input type="checkbox" id="list-checkbox-${id}" class="mdl-checkbox__input" ${checked ? 'checked' : '' } />
-                           
-
-                            </span>
-                            <label class="mdl-icon-toggle mdl-js-icon-toggle mdl-js-ripple-effect" for="icon-toggle-${id}">
-                                <input type="checkbox" id="icon-toggle-${id}" class="mdl-icon-toggle__input" ${checked ? del_button1 : ''} />
-                                <i class="mdl-icon-toggle__label material-icons">delete</i>
-                                </label>
-
                             </label>
-
+                            <label class="mdl-icon-toggle mdl-jsn-toggle l-js-ripple-effect" for="icon-toggle-${id}">
+                                <i class="mdl-icon-toggle__label material-icons ln_todo_delete">delete</i>
+                            </label>
+                        </span>
                     </li>
                 ` + list.innerHTML;
             }
@@ -165,23 +161,32 @@
             currentList.push({
                 id: id,
                 text: todofield1.value,
+                checked: false,
             })
             setLocalStorage('todos_1', currentList)
 
             todofield1.value = ""
         }
 
-        function del_button1() {
 
-            localStorage.removeItem(id)
+        $('#todoList1').on('click', '.ln_todo_delete', function(e) {
+            e.preventDefault()
 
+            const item = $(this).closest('li.mdl-list__item')
+            const id = item.attr('id')
+
+            deleteTodoFromList('todos_1', id)
+
+            item.remove()
+        })
+
+        function deleteTodoFromList(key, id) {
+            let list = getLocalStorage(key)
+
+            list = list.filter(item => item.id !== id)
+
+            setLocalStorage(key, list)
         }
-
-        localStorage.removeItem("598446811_333022042")
-
-
-
-
 
         function addTodo2() {
             const id = uuidv4()
@@ -191,10 +196,30 @@
             currentList.push({
                 id: id,
                 text: todofield2.value,
+                checked: false,
             })
             setLocalStorage('todos_2', currentList)
 
             todofield2.value = ""
+        }
+
+        $('#todoList2').on('click', '.ln_todo_delete', function(e) {
+            e.preventDefault()
+
+            const item = $(this).closest('li.mdl-list__item')
+            const id = item.attr('id')
+
+            deleteTodoFromList('todos_2', id)
+
+            item.remove()
+        })
+
+        function deleteTodoFromList(key, id) {
+            let list = getLocalStorage(key)
+
+            list = list.filter(item => item.id !== id)
+
+            setLocalStorage(key, list)
         }
 
         function addTodo3() {
@@ -205,10 +230,30 @@
             currentList.push({
                 id: id,
                 text: todofield3.value,
+                checked: false,
             })
             setLocalStorage('todos_3', currentList)
 
             todofield3.value = ""
+        }
+
+        $('#todoList3').on('click', '.ln_todo_delete', function(e) {
+            e.preventDefault()
+
+            const item = $(this).closest('li.mdl-list__item')
+            const id = item.attr('id')
+
+            deleteTodoFromList('todos_3', id)
+
+            item.remove()
+        })
+
+        function deleteTodoFromList(key, id) {
+            let list = getLocalStorage(key)
+
+            list = list.filter(item => item.id !== id)
+
+            setLocalStorage(key, list)
         }
 
         function deletetodo1() {
@@ -298,7 +343,7 @@
 
             // for = For Schleife/For In Schleife
             for (let todo of todos) {
-                appendTodo(document.getElementById(list), todo.id, todo.text)
+                appendTodo(document.getElementById(list), todo.id, todo.text, todo.checked)
             }
         }
 
