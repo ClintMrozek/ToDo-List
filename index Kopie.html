@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+
+    <style>
+        .demo-list-control {
+            width: 300px;
+        }
+        
+        .page-content {
+            padding-left: 100px;
+            padding-top: 40px;
+            display: grid;
+        }
+    </style>
+
+
+</head>
+
+<body>
+
+
+
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-tabs">
+        <header class="mdl-layout__header">
+            <div class="mdl-layout__header-row">
+                <!-- Title -->
+                <span class="mdl-layout-title" id="day">To-Do List</span>
+            </div>
+
+            <!-- Tabs -->
+            <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
+                <a href="#fixed-tab-1" class="mdl-layout__tab is-active">Arbeit</a>
+                <a href="#fixed-tab-2" class="mdl-layout__tab">Einkaufen</a>
+                <a href="#fixed-tab-3" class="mdl-layout__tab">Alltag</a>
+            </div>
+        </header>
+        <div class="mdl-layout__drawer">
+            <span class="mdl-layout-title">To-Do List</span>
+
+        </div>
+        <main class="mdl-layout__content">
+            <section class="mdl-layout__tab-panel is-active" id="fixed-tab-1">
+                <div class="page-content">
+                    <form onsubmit="addTodo1(); return false;">
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" id="todofield1">
+                            <label class="mdl-textfield__label" for="todofield">Arbeit</label>
+                        </div>
+                        <button type="submit" class="mdl-button mdl-js-button mdl-button--raised">Hinzufügen</button>
+                        <button type="click" class="mdl-button mdl-js-button mdl-button--raised">Löschen</button>
+                    </form>
+
+                    <ul class="demo-list-control mdl-list" id="todoList1">
+
+                    </ul>
+                </div>
+            </section>
+            <section class="mdl-layout__tab-panel" id="fixed-tab-2">
+                <div class="page-content">
+                    <form onsubmit="addTodo2(); return false;">
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" id="todofield2">
+                            <label class="mdl-textfield__label" for="todofield">Einkaufen</label>
+                        </div>
+
+                        <button type="submit" class="mdl-button mdl-js-button mdl-button--raised">Hinzufügen</button>
+
+                    </form>
+                    <form onclick="deletTodo2(); return false;">
+                        <button type="click" class="mdl-button mdl-js-button mdl-button--raised">Löschen</button>
+                    </form>
+
+                    <ul class="demo-list-control mdl-list" id="todoList2">
+
+                    </ul>
+                </div>
+            </section>
+            <section class="mdl-layout__tab-panel" id="fixed-tab-3">
+                <div class="page-content">
+                    <!-- Rückgabewert = Return, Event = onsubmit -->
+                    <form onsubmit="addTodo3(); return false;">
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" id="todofield3">
+                            <label class="mdl-textfield__label" for="todofield">Alltag</label>
+                        </div>
+
+                        <button type="submit" class="mdl-button mdl-js-button mdl-button--raised">Hinzufügen</button>
+                        <button type="click" class="mdl-button mdl-js-button mdl-button--raised">Löschen</button>
+                    </form>
+
+                    <ul class="demo-list-control mdl-list" id="todoList3">
+
+                    </ul>
+                </div>
+            </section>
+        </main>
+    </div>
+
+
+
+
+    <script>
+        function appendTodo(list, todoName) {
+
+            if (todoName) {
+                list.innerHTML = `
+                    <li class="mdl-list__item">
+                        <span class="mdl-list__item-primary-content">
+                            <i class="material-icons  mdl-list__item-symbol">remove</i>
+                            ${todoName}
+                        </span>
+                        <span class="mdl-list__item-secondary-action">
+                            <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-1">
+                                <input type="checkbox" id="list-checkbox-1" class="mdl-checkbox__input" checked />
+                            </label>
+                        </span>
+                    </li>
+                ` + list.innerHTML;
+            }
+        }
+
+        function addTodo1() {
+
+            appendTodo(todoList1, todofield1.value)
+
+            let currentList = getLocalStorage('todos_1') || []
+            currentList.push(todofield1.value)
+            setLocalStorage('todos_1', currentList)
+
+            todofield1.value = ""
+        }
+
+        function addTodo2() {
+            appendTodo(todoList2, todofield2.value)
+
+            setLocalStorage('todos_2', todofield2.value)
+
+            todofield2.value = ""
+        }
+
+        function addTodo3() {
+            appendTodo(todoList3, todofield3.value)
+
+            setLocalStorage('todos_3', todofield3.value)
+
+            todofield3.value = ""
+        }
+
+        function deletetodo() {
+
+
+        }
+
+
+
+        const sel_title = document.getElementById("day")
+
+        function setTitle(sel_title, name) {
+            sel_title.innerHTML = "To-Do List " + name;
+            setLocalStorage('currentDay', name)
+        }
+
+        switch (new Date().getDay()) {
+            case 0:
+                setTitle(sel_title, 'Sonntag')
+                break;
+            case 1:
+                ssetTitle(sel_title, 'Montag')
+                break;
+            case 2:
+                setTitle(sel_title, 'Dienstag')
+                break;
+            case 3:
+                setTitle(sel_title, 'Mittwoch')
+                break;
+            case 4:
+                setTitle(sel_title, 'Donnerstag')
+                break;
+            case 5:
+                setTitle(sel_title, 'Freitag')
+                break;
+            case 6:
+                setTitle(sel_title, 'Samstag')
+                break;
+        }
+
+
+        /* ### Local Storage ### */
+        function getLocalStorage(key) {
+            //return localStorage.getItem(key)
+            return JSON.parse(localStorage.getItem(key)) || null
+        }
+
+        function setLocalStorage(key, value, allowWarning) {
+            try {
+                //localStorage.setItem(key, value)
+                localStorage.setItem(key, JSON.stringify(value))
+            } catch (e) {
+                if (allowWarning && confirm(_L_ERROR_PRIVATE_MODE)) {
+                    //  deleteLocalStorage(key)
+                    window.location.reload()
+                }
+            }
+        }
+
+        function init(list, key) {
+            const todos = getLocalStorage(key) || []
+
+            // for = For Schleife/For In Schleife
+            for (let todo of todos) {
+                appendTodo(document.getElementById(list), todo)
+            }
+        }
+
+        try {
+            init('todoList1', 'todos_1')
+            init('todoList2', 'todos_2')
+            init('todoList3', 'todos_3')
+        } catch {
+            console.log('Es ist ein Fehler aufgetreten')
+        }
+
+        //console.log(init)
+
+
+        //appendTodo(document.getElementById('todoList2'), getLocalStorage('todos_2'))
+        //appendTodo(document.getElementById('todoList3'), getLocalStorage('todos_3'))
+
+
+        /* const myLocalKey = 'MY_LOCAL_TODO'
+         setLocalStorage(myLocalKey, 'hallo2')
+
+          let x = getLocalStorage(myLocalKey) 
+
+
+
+
+
+
+
+        console.log(x)*/
+    </script>
+</body>
+
+</html>
