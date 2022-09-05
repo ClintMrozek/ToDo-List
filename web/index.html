@@ -1,142 +1,206 @@
 <!DOCTYPE html>
 <html lang="de">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>To-Do List</title>
+		<link rel="icon" href="favicon.png" />
+		<link
+			rel="stylesheet"
+			href="https://fonts.googleapis.com/icon?family=Material+Icons"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css"
+		/>
+		<script
+			defer
+			src="https://code.getmdl.io/1.3.0/material.min.js"
+		></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+			integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer"
+		></script>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To-Do List</title>
-    <link rel="icon" href="favicon.png" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
-    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+		<style>
+			.demo-list-control {
+				width: 300px;
+			}
 
-    <style>
-        .demo-list-control {
-            width: 300px;
-        }
-        
-        .page-content {
-            padding-left: 100px;
-            padding-top: 40px;
-        }
-        
-        .mdl-layout__header-row {
-            display: flex;
-            justify-content: center;
-        }
-    </style>
+			.page-content {
+				padding-left: 100px;
+				padding-top: 40px;
+				display: grid;
+				grid-template-columns: 1fr;
+			}
 
+			.mdl-layout__header-row {
+				display: flex;
+				justify-content: center;
+			}
+		</style>
+	</head>
 
+	<body>
+		<div
+			class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-tabs"
+		>
+			<header class="mdl-layout__header">
+				<div class="mdl-layout__header-row">
+					<!-- Title -->
+					<span class="mdl-layout-title" id="day">To-Do List</span>
+				</div>
 
-</head>
+				<!-- Tabs -->
+				<div class="mdl-layout__tab-bar mdl-js-ripple-effect">
+					<a href="#fixed-tab-1" class="mdl-layout__tab is-active"
+						>Arbeit</a
+					>
+					<a href="#fixed-tab-2" class="mdl-layout__tab">Einkaufen</a>
+					<a href="#fixed-tab-3" class="mdl-layout__tab">Alltag</a>
+				</div>
+			</header>
+			<div class="mdl-layout__spacer">
+				<span class="mdl-layout-title"></span>
+			</div>
+			<main class="mdl-layout__content">
+				<section
+					class="mdl-layout__tab-panel is-active"
+					id="fixed-tab-1"
+				>
+					<div class="page-content">
+						<form onsubmit="addTodo1(); return false;">
+							<div
+								class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
+							>
+								<input
+									class="mdl-textfield__input"
+									type="text"
+									id="todofield1"
+								/>
+								<label
+									class="mdl-textfield__label"
+									for="todofield"
+									>Arbeit</label
+								>
+							</div>
+							<button
+								type="submit"
+								class="mdl-button mdl-js-button mdl-button--raised"
+							>
+								Hinzufügen
+							</button>
+						</form>
 
-<body>
+						<ul
+							class="demo-list-control mdl-list"
+							id="todoList1"
+						></ul>
 
+						<form onclick="deletetodo1(); return false;">
+							<button
+								type="click"
+								class="mdl-button mdl-js-button mdl-button--raised"
+							>
+								Löschen
+							</button>
+						</form>
+					</div>
+				</section>
+				<section class="mdl-layout__tab-panel" id="fixed-tab-2">
+					<div class="page-content">
+						<form onsubmit="addTodo2(); return false;">
+							<div
+								class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
+							>
+								<input
+									class="mdl-textfield__input"
+									type="text"
+									id="todofield2"
+								/>
+								<label
+									class="mdl-textfield__label"
+									for="todofield"
+									>Einkaufen</label
+								>
+							</div>
 
+							<button
+								type="submit"
+								class="mdl-button mdl-js-button mdl-button--raised"
+							>
+								Hinzufügen
+							</button>
+						</form>
 
-    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-tabs">
-        <header class="mdl-layout__header">
-            <div class="mdl-layout__header-row">
-                <!-- Title -->
-                <span class="mdl-layout-title" id="day">To-Do List</span>
-            </div>
+						<ul
+							class="demo-list-control mdl-list"
+							id="todoList2"
+						></ul>
 
-            <!-- Tabs -->
-            <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
-                <a href="#fixed-tab-1" class="mdl-layout__tab is-active">Arbeit</a>
-                <a href="#fixed-tab-2" class="mdl-layout__tab">Einkaufen</a>
-                <a href="#fixed-tab-3" class="mdl-layout__tab">Alltag</a>
-            </div>
-        </header>
-        <div class="mdl-layout__spacer">
-            <span class="mdl-layout-title"></span>
+						<form onclick="deletetodo2(); return false;">
+							<button
+								type="click"
+								class="mdl-button mdl-js-button mdl-button--raised"
+							>
+								Löschen
+							</button>
+						</form>
+					</div>
+				</section>
+				<section class="mdl-layout__tab-panel" id="fixed-tab-3">
+					<div class="page-content">
+						<!-- Rückgabewert = Return, Event = onsubmit -->
+						<form onsubmit="addTodo3(); return false;">
+							<div
+								class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
+							>
+								<input
+									class="mdl-textfield__input"
+									type="text"
+									id="todofield3"
+								/>
+								<label
+									class="mdl-textfield__label"
+									for="todofield"
+									>Alltag</label
+								>
+							</div>
 
+							<button
+								type="submit"
+								class="mdl-button mdl-js-button mdl-button--raised"
+							>
+								Hinzufügen
+							</button>
+						</form>
 
+						<ul
+							class="demo-list-control mdl-list"
+							id="todoList3"
+						></ul>
 
-        </div>
-        <main class="mdl-layout__content">
-            <section class="mdl-layout__tab-panel is-active" id="fixed-tab-1">
-                <div class="page-content">
-                    <form onsubmit="addTodo1(); return false;">
-                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input class="mdl-textfield__input" type="text" id="todofield1">
-                            <label class="mdl-textfield__label" for="todofield">Arbeit</label>
-                        </div>
-                        <button type="submit" class="mdl-button mdl-js-button mdl-button--raised">Hinzufügen</button>
-                    </form>
+						<form onclick="deletetodo3(); return false;">
+							<button
+								type="click"
+								class="mdl-button mdl-js-button mdl-button--raised"
+							>
+								Löschen
+							</button>
+						</form>
+					</div>
+				</section>
+			</main>
+		</div>
 
-
-
-                    <ul class="demo-list-control mdl-list" id="todoList1">
-
-                    </ul>
-
-                    <form onclick="deletetodo1(); return false;">
-
-                        <button type="click" class="mdl-button mdl-js-button mdl-button--raised">Löschen</button>
-                    </form>
-
-                </div>
-            </section>
-            <section class="mdl-layout__tab-panel" id="fixed-tab-2">
-                <div class="page-content">
-                    <form onsubmit="addTodo2(); return false;">
-                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input class="mdl-textfield__input" type="text" id="todofield2">
-                            <label class="mdl-textfield__label" for="todofield">Einkaufen</label>
-                        </div>
-
-                        <button type="submit" class="mdl-button mdl-js-button mdl-button--raised">Hinzufügen</button>
-                    </form>
-
-
-
-                    <ul class="demo-list-control mdl-list" id="todoList2">
-
-                    </ul>
-
-                    <form onclick="deletetodo2(); return false;">
-
-                        <button type="click" class="mdl-button mdl-js-button mdl-button--raised">Löschen</button>
-                    </form>
-
-                </div>
-            </section>
-            <section class="mdl-layout__tab-panel" id="fixed-tab-3">
-                <div class="page-content">
-                    <!-- Rückgabewert = Return, Event = onsubmit -->
-                    <form onsubmit="addTodo3(); return false;">
-                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input class="mdl-textfield__input" type="text" id="todofield3">
-                            <label class="mdl-textfield__label" for="todofield">Alltag</label>
-                        </div>
-
-                        <button type="submit" class="mdl-button mdl-js-button mdl-button--raised">Hinzufügen</button>
-
-                    </form>
-
-                    <ul class="demo-list-control mdl-list" id="todoList3">
-
-                    </ul>
-
-                    <form onclick="deletetodo3(); return false;">
-
-                        <button type="click" class="mdl-button mdl-js-button mdl-button--raised">Löschen</button>
-                    </form>
-
-                </div>
-            </section>
-        </main>
-    </div>
-
-
-    <script>
-        function appendTodo(list, id, todoName, checked) {
-
-            if (todoName) {
-                list.innerHTML = `
+		<script>
+			function appendTodo(list, id, todoName, checked) {
+				if (todoName) {
+					list.innerHTML =
+						`
                     <li class="mdl-list__item" id="${id}">
                         <span class="mdl-list__item-primary-content">
                             <i class="material-icons  mdl-list__item-symbol">remove</i>
@@ -144,7 +208,9 @@
                         </span>
                         <span class="mdl-list__item-secondary-action">
                             <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-${id}">
-                                <input type="checkbox" id="list-checkbox-${id}" class="mdl-checkbox__input" ${checked ? 'checked' : '' } />
+                                <input type="checkbox" id="list-checkbox-${id}" class="mdl-checkbox__input" ${
+							checked ? "checked" : ""
+						} />
                             </label>
                             <label class="mdl-icon-toggle mdl-jsn-toggle l-js-ripple-effect" for="icon-toggle-${id}">
                                 <i class="mdl-icon-toggle__label material-icons ln_todo_delete">delete</i>
@@ -152,211 +218,205 @@
                         </span>
                     </li>
                 ` + list.innerHTML;
-            }
-        }
+				}
+			}
 
-        function addTodo1() {
-            const id = uuidv4()
-            appendTodo(todoList1, id, todofield1.value)
+			function addTodo1() {
+				const id = uuidv4();
+				appendTodo(todoList1, id, todofield1.value);
 
-            let currentList = getLocalStorage('todos_1') || []
-            currentList.push({
-                id: id,
-                text: todofield1.value,
-                checked: false,
-            })
-            setLocalStorage('todos_1', currentList)
+				let currentList = getLocalStorage("todos_1") || [];
+				currentList.push({
+					id: id,
+					text: todofield1.value,
+					checked: false,
+				});
+				setLocalStorage("todos_1", currentList);
 
-            todofield1.value = ""
-        }
+				todofield1.value = "";
+			}
 
+			$("#todoList1").on("click", ".ln_todo_delete", function (e) {
+				e.preventDefault();
 
-        $('#todoList1').on('click', '.ln_todo_delete', function(e) {
-            e.preventDefault()
+				const item = $(this).closest("li.mdl-list__item");
+				const id = item.attr("id");
 
-            const item = $(this).closest('li.mdl-list__item')
-            const id = item.attr('id')
+				deleteTodoFromList("todos_1", id);
 
-            deleteTodoFromList('todos_1', id)
+				item.remove();
+			});
 
-            item.remove()
-        })
+			function deleteTodoFromList(key, id) {
+				let list = getLocalStorage(key);
 
-        function deleteTodoFromList(key, id) {
-            let list = getLocalStorage(key)
+				list = list.filter((item) => item.id !== id);
 
-            list = list.filter(item => item.id !== id)
+				setLocalStorage(key, list);
+			}
 
-            setLocalStorage(key, list)
-        }
+			function addTodo2() {
+				const id = uuidv4();
+				appendTodo(todoList2, id, todofield2.value);
 
-        function addTodo2() {
-            const id = uuidv4()
-            appendTodo(todoList2, id, todofield2.value)
+				let currentList = getLocalStorage("todos_2") || [];
+				currentList.push({
+					id: id,
+					text: todofield2.value,
+					checked: false,
+				});
+				setLocalStorage("todos_2", currentList);
 
-            let currentList = getLocalStorage('todos_2') || []
-            currentList.push({
-                id: id,
-                text: todofield2.value,
-                checked: false,
-            })
-            setLocalStorage('todos_2', currentList)
+				todofield2.value = "";
+			}
 
-            todofield2.value = ""
-        }
+			$("#todoList2").on("click", ".ln_todo_delete", function (e) {
+				e.preventDefault();
 
-        $('#todoList2').on('click', '.ln_todo_delete', function(e) {
-            e.preventDefault()
+				const item = $(this).closest("li.mdl-list__item");
+				const id = item.attr("id");
 
-            const item = $(this).closest('li.mdl-list__item')
-            const id = item.attr('id')
+				deleteTodoFromList("todos_2", id);
 
-            deleteTodoFromList('todos_2', id)
+				item.remove();
+			});
 
-            item.remove()
-        })
+			function deleteTodoFromList(key, id) {
+				let list = getLocalStorage(key);
 
-        function deleteTodoFromList(key, id) {
-            let list = getLocalStorage(key)
+				list = list.filter((item) => item.id !== id);
 
-            list = list.filter(item => item.id !== id)
+				setLocalStorage(key, list);
+			}
 
-            setLocalStorage(key, list)
-        }
+			function addTodo3() {
+				const id = uuidv4();
+				appendTodo(todoList3, id, todofield3.value);
 
-        function addTodo3() {
-            const id = uuidv4()
-            appendTodo(todoList3, id, todofield3.value)
+				let currentList = getLocalStorage("todos_3") || [];
+				currentList.push({
+					id: id,
+					text: todofield3.value,
+					checked: false,
+				});
+				setLocalStorage("todos_3", currentList);
 
-            let currentList = getLocalStorage('todos_3') || []
-            currentList.push({
-                id: id,
-                text: todofield3.value,
-                checked: false,
-            })
-            setLocalStorage('todos_3', currentList)
+				todofield3.value = "";
+			}
 
-            todofield3.value = ""
-        }
+			$("#todoList3").on("click", ".ln_todo_delete", function (e) {
+				e.preventDefault();
 
-        $('#todoList3').on('click', '.ln_todo_delete', function(e) {
-            e.preventDefault()
+				const item = $(this).closest("li.mdl-list__item");
+				const id = item.attr("id");
 
-            const item = $(this).closest('li.mdl-list__item')
-            const id = item.attr('id')
+				deleteTodoFromList("todos_3", id);
 
-            deleteTodoFromList('todos_3', id)
+				item.remove();
+			});
 
-            item.remove()
-        })
+			function deleteTodoFromList(key, id) {
+				let list = getLocalStorage(key);
 
-        function deleteTodoFromList(key, id) {
-            let list = getLocalStorage(key)
+				list = list.filter((item) => item.id !== id);
 
-            list = list.filter(item => item.id !== id)
+				setLocalStorage(key, list);
+			}
 
-            setLocalStorage(key, list)
-        }
+			function deletetodo1() {
+				localStorage.removeItem("todos_1");
+				document.getElementById("todoList1").innerHTML = "";
+			}
 
-        function deletetodo1() {
+			function deletetodo2() {
+				localStorage.removeItem("todos_2");
+				document.getElementById("todoList2").innerHTML = "";
+			}
 
-            localStorage.removeItem("todos_1")
-            document.getElementById('todoList1').innerHTML = ''
+			function deletetodo3() {
+				localStorage.removeItem("todos_3");
+				document.getElementById("todoList3").innerHTML = "";
+			}
 
-        }
+			// Importiert
+			function getRandomId() {
+				return Math.random().toString().substr(2, 9);
+			}
 
-        function deletetodo2() {
+			function uuidv4() {
+				return getRandomId() + "_" + getRandomId();
+			}
 
-            localStorage.removeItem("todos_2")
-            document.getElementById('todoList2').innerHTML = ''
+			const sel_title = document.getElementById("day");
 
-        }
+			function setTitle(sel_title, name) {
+				sel_title.innerHTML = "To-Do List " + name;
+				setLocalStorage("currentDay", name);
+			}
 
-        function deletetodo3() {
+			switch (new Date().getDay()) {
+				case 0:
+					setTitle(sel_title, "Sonntag");
+					break;
+				case 1:
+					setTitle(sel_title, "Montag");
+					break;
+				case 2:
+					setTitle(sel_title, "Dienstag");
+					break;
+				case 3:
+					setTitle(sel_title, "Mittwoch");
+					break;
+				case 4:
+					setTitle(sel_title, "Donnerstag");
+					break;
+				case 5:
+					setTitle(sel_title, "Freitag");
+					break;
+				case 6:
+					setTitle(sel_title, "Samstag");
+					break;
+			}
 
-            localStorage.removeItem("todos_3")
-            document.getElementById('todoList3').innerHTML = ''
-        }
+			/* ### Local Storage ### */
+			function getLocalStorage(key) {
+				//return localStorage.getItem(key)
+				return JSON.parse(localStorage.getItem(key)) || null;
+			}
 
+			function setLocalStorage(key, value, allowWarning) {
+				try {
+					//localStorage.setItem(key, value)
+					localStorage.setItem(key, JSON.stringify(value));
+				} catch (e) {
+					if (allowWarning && confirm(_L_ERROR_PRIVATE_MODE)) {
+						//  deleteLocalStorage(key)
+						window.location.reload();
+					}
+				}
+			}
 
-        // Importiert
-        function getRandomId() {
-            return Math.random().toString().substr(2, 9)
-        }
+			function init(list, key) {
+				const todos = getLocalStorage(key) || [];
 
-        function uuidv4() {
-            return getRandomId() + '_' + getRandomId()
-        }
+				// for = For Schleife/For In Schleife
+				for (let todo of todos) {
+					appendTodo(
+						document.getElementById(list),
+						todo.id,
+						todo.text,
+						todo.checked
+					);
+				}
+			}
 
-
-
-        const sel_title = document.getElementById("day")
-
-        function setTitle(sel_title, name) {
-            sel_title.innerHTML = "To-Do List " + name;
-            setLocalStorage('currentDay', name)
-        }
-
-        switch (new Date().getDay()) {
-            case 0:
-                setTitle(sel_title, 'Sonntag')
-                break;
-            case 1:
-                setTitle(sel_title, 'Montag')
-                break;
-            case 2:
-                setTitle(sel_title, 'Dienstag')
-                break;
-            case 3:
-                setTitle(sel_title, 'Mittwoch')
-                break;
-            case 4:
-                setTitle(sel_title, 'Donnerstag')
-                break;
-            case 5:
-                setTitle(sel_title, 'Freitag')
-                break;
-            case 6:
-                setTitle(sel_title, 'Samstag')
-                break;
-        }
-
-
-        /* ### Local Storage ### */
-        function getLocalStorage(key) {
-            //return localStorage.getItem(key)
-            return JSON.parse(localStorage.getItem(key)) || null
-        }
-
-        function setLocalStorage(key, value, allowWarning) {
-            try {
-                //localStorage.setItem(key, value)
-                localStorage.setItem(key, JSON.stringify(value))
-            } catch (e) {
-                if (allowWarning && confirm(_L_ERROR_PRIVATE_MODE)) {
-                    //  deleteLocalStorage(key)
-                    window.location.reload()
-                }
-            }
-        }
-
-        function init(list, key) {
-            const todos = getLocalStorage(key) || []
-
-            // for = For Schleife/For In Schleife
-            for (let todo of todos) {
-                appendTodo(document.getElementById(list), todo.id, todo.text, todo.checked)
-            }
-        }
-
-        try {
-            init('todoList1', 'todos_1')
-            init('todoList2', 'todos_2')
-            init('todoList3', 'todos_3')
-        } catch {
-            console.log('Es ist ein Fehler aufgetreten')
-        }
-    </script>
-</body>
-
+			try {
+				init("todoList1", "todos_1");
+				init("todoList2", "todos_2");
+				init("todoList3", "todos_3");
+			} catch {
+				console.log("Es ist ein Fehler aufgetreten");
+			}
+		</script>
+	</body>
 </html>
